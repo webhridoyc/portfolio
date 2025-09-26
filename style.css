@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
 *{
     margin: 0;
@@ -18,8 +18,59 @@ body{
     width: 100%;
     height: 100vh;
     overflow-x: hidden;
-    background-color: black;
+    background: linear-gradient(135deg, #0B1426 0%, #2D1B69 50%, #0B1426 100%);
     color: white;
+    position: relative;
+}
+
+/* Animated Starfield Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, #00FFFF, transparent),
+        radial-gradient(2px 2px at 40px 70px, #39FF14, transparent),
+        radial-gradient(1px 1px at 90px 40px, #00FFFF, transparent),
+        radial-gradient(1px 1px at 130px 80px, #39FF14, transparent),
+        radial-gradient(2px 2px at 160px 30px, #00FFFF, transparent),
+        radial-gradient(1px 1px at 180px 90px, #39FF14, transparent),
+        radial-gradient(1px 1px at 230px 20px, #00FFFF, transparent),
+        radial-gradient(2px 2px at 280px 60px, #39FF14, transparent);
+    background-repeat: repeat;
+    background-size: 300px 200px;
+    animation: sparkle 8s linear infinite;
+    z-index: -2;
+    opacity: 0.8;
+}
+
+/* Secondary star layer */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(1px 1px at 50px 50px, #FFFFFF, transparent),
+        radial-gradient(1px 1px at 100px 150px, #FFFFFF, transparent),
+        radial-gradient(1px 1px at 200px 80px, #FFFFFF, transparent),
+        radial-gradient(1px 1px at 250px 180px, #FFFFFF, transparent),
+        radial-gradient(1px 1px at 350px 100px, #FFFFFF, transparent);
+    background-repeat: repeat;
+    background-size: 400px 250px;
+    animation: sparkle 12s linear infinite reverse;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+@keyframes sparkle {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-300px); }
 }
 
 header{
@@ -29,39 +80,75 @@ header{
     left: 0;
     width: 100%;
     padding: 1rem 9%;
-    background-color: transparent;
-    filter: drop-shadow(10px);
+    background: rgba(11, 20, 38, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 100;
+    animation: slideDown 1s ease-out;
+}
+
+@keyframes slideDown {
+    0% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
 .logo{
     font-size: 3rem;
-    color: #b74b4b;
+    color: #00FFFF;
     font-weight: 800;
+    font-family: 'Orbitron', sans-serif;
     cursor: pointer;
     transition: 0.5s ease;
+    text-shadow: 0 0 20px #00FFFF;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { text-shadow: 0 0 20px #00FFFF; }
+    50% { text-shadow: 0 0 30px #00FFFF, 0 0 40px #00FFFF; }
 }
 
 .logo:hover{
     transform: scale(1.1);
+    color: #39FF14;
+    text-shadow: 0 0 30px #39FF14;
 }
 
 nav a{
     font-size: 1.8rem;
-    color: white;
+    color: #CCCCCC;
     margin-left: 4rem;
     font-weight: 500;
     transition: 0.3s ease;
     border-bottom: 3px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+nav a:hover::before {
+    left: 100%;
 }
 
 nav a:hover,
 nav a.active{
-    color: #b74b4b;
-    border-bottom: 3px solid #b74b4b;
+    color: #00FFFF;
+    border-bottom: 3px solid #00FFFF;
+    text-shadow: 0 0 10px #00FFFF;
+    transform: translateY(-2px);
 }
 
 @media(max-width:995px){
@@ -71,16 +158,23 @@ nav a.active{
         top: 0;
         right: 0;
         width: 40%;
-        border-left: 3px solid #b74b4b;
-        border-bottom: 3px solid #b74b4b;
+        border-left: 3px solid #00FFFF;
+        border-bottom: 3px solid #00FFFF;
         border-bottom-left-radius: 2rem;
         padding: 1rem solid;
-        background-color: #161616;
-        border-top: 0.1rem solid rgba(0,0,0,0.1);
+        background: rgba(45, 27, 105, 0.95);
+        backdrop-filter: blur(10px);
+        border-top: 0.1rem solid rgba(0,255,255,0.3);
     }
 
     nav.active{
         display: block;
+        animation: slideInRight 0.3s ease;
+    }
+
+    @keyframes slideInRight {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(0); }
     }
 
     nav a{
@@ -93,13 +187,15 @@ nav a.active{
     nav a.active{
         padding: 1rem;
         border-radius: 0.5rem;
-        border-bottom: 0.5rem solid #b74b4b;
+        border-bottom: 0.5rem solid #00FFFF;
+        background: rgba(0, 255, 255, 0.1);
     }
 }
 
 section{
     min-height: 100vh;
     padding: 5rem 9% 5rem;
+    position: relative;
 }
 
 .home{
@@ -107,45 +203,136 @@ section{
     justify-content: center;
     align-items: center;
     gap: 8rem;
-    background-color: black;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Floating cosmic dust particles */
+.home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(1px 1px at 10% 20%, rgba(0,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 80% 80%, rgba(57,255,20,0.3), transparent),
+        radial-gradient(1px 1px at 40% 40%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 90% 10%, rgba(0,255,255,0.2), transparent),
+        radial-gradient(1px 1px at 20% 90%, rgba(57,255,20,0.2), transparent);
+    background-size: 100px 100px;
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+    50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
 }
 
 .home .home-content h1{
     font-size: 6rem;
     font-weight: 700;
     line-height: 1.3;
+    font-family: 'Orbitron', sans-serif;
+    animation: slideInLeft 1s ease-out 0.5s both;
+}
+
+@keyframes slideInLeft {
+    0% { transform: translateX(-100px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
 }
 
 span{
-    color: #b74b4b;
+    color: #00FFFF;
+    text-shadow: 0 0 20px #00FFFF;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 20px #00FFFF; }
+    to { text-shadow: 0 0 30px #00FFFF, 0 0 40px #00FFFF; }
 }
 
 .home-content h3{
     font-size: 4rem;
     margin-bottom: 1rem;
     font-weight: 700;
+    color: #39FF14;
+    animation: slideInLeft 1s ease-out 0.7s both;
 }
 
 .home-content p{
     font-size: 1.6rem;
+    color: #CCCCCC;
+    line-height: 1.8;
+    animation: fadeInUp 1s ease-out 1s both;
+}
+
+@keyframes fadeInUp {
+    0% { transform: translateY(30px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
 .home-img{
     border-radius: 50%;
+    position: relative;
+    animation: slideInRight 1s ease-out 0.5s both;
+}
+
+@keyframes slideInRight {
+    0% { transform: translateX(100px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.home-img::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #00FFFF, #39FF14, #2D1B69, #00FFFF) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .home-img img{
     position: relative;
     width: 32vw;
     border-radius: 50%;
-    box-shadow: 0 0 25px solid #b74b4b;
+    box-shadow: 
+        0 0 25px rgba(0, 255, 255, 0.5),
+        0 0 50px rgba(0, 255, 255, 0.3),
+        inset 0 0 25px rgba(0, 255, 255, 0.1);
     cursor: pointer;
-    transition: 0.2s linear;
+    transition: 0.3s ease;
+    animation: float 6s ease-in-out infinite;
 }
 
 .home-img img:hover{
-    font-size: 1.8rem;
-    font-weight: 500;
+    transform: scale(1.05);
+    box-shadow: 
+        0 0 40px rgba(57, 255, 20, 0.6),
+        0 0 80px rgba(57, 255, 20, 0.4),
+        inset 0 0 25px rgba(57, 255, 20, 0.2);
+}
+
+.social-icons {
+    animation: fadeInUp 1s ease-out 1.2s both;
 }
 
 .social-icons a{
@@ -154,47 +341,91 @@ span{
     align-items: center;
     width: 4rem;
     height: 4rem;
-    background-color: transparent;
-    border: 0.2rem solid #b74b4b;
+    background: rgba(0, 255, 255, 0.1);
+    border: 0.2rem solid #00FFFF;
     font-size: 2rem;
     border-radius: 50%;
     margin: 3rem 1.5rem 3rem 0;
     transition: 0.3s ease;
-    color: #b74b4b;
+    color: #00FFFF;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icons a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.social-icons a:hover::before {
+    left: 100%;
 }
 
 .social-icons a:hover{
-    color: black;
+    color: #0B1426;
     transform: scale(1.3) translateY(-5px);
-    background-color: #b74b4b;
-    box-shadow: 0  0 25px #b74b4b;
+    background: #00FFFF;
+    box-shadow: 
+        0 0 25px #00FFFF,
+        0 10px 20px rgba(0, 255, 255, 0.3);
+    border-color: #39FF14;
 }
 
 .btn{
     display: inline-block;
     padding: 1rem 2.8rem;
-    background-color: black;
+    background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(57, 255, 20, 0.1));
     border-radius: 4rem;
     font-size: 1.6rem;
-    color: #b74b4b;
+    color: #00FFFF;
     letter-spacing: 0.3rem;
     font-weight: 600;
-    border: 2px solid #b74b4b;
+    font-family: 'Orbitron', sans-serif;
+    border: 2px solid #00FFFF;
     transition: 0.3s ease;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    animation: fadeInUp 1s ease-out 1.4s both;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn:hover{
-    transform: scale3d(1.03);
-    background-color: #b74b4b;
-    color: black;
-    box-shadow: 0 0 25px #b74b4b;
+    transform: scale(1.05) translateY(-2px);
+    background: linear-gradient(45deg, #00FFFF, #39FF14);
+    color: #0B1426;
+    box-shadow: 
+        0 0 25px #00FFFF,
+        0 10px 30px rgba(0, 255, 255, 0.3);
+    border-color: #39FF14;
 }
 
 .typing-text{
     font-size: 34px;
     font-weight: 600;
     min-width: 280px;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .typing-text span{
@@ -202,43 +433,44 @@ span{
 }
 
 .typing-text span::before{
-    content: "software Developer";
-    color: #b74b4b;
+    content: "Space Developer";
+    color: #39FF14;
     animation: words 20s infinite;
+    text-shadow: 0 0 10px #39FF14;
 }
 
 .typing-text span::after{
     content: "";
-    background-color: black;
+    background: linear-gradient(135deg, #0B1426 0%, #2D1B69 50%, #0B1426 100%);
     position: absolute;
     width: calc(100% + 8px);
     height: 100%;
-    border-left: 3px solid black;
+    border-left: 3px solid #00FFFF;
     right: -8;
     animation: cursor 0.6s infinite;
 }
 
 @keyframes cursor{
     to{
-        border-left: 3px solid #b74b4b;
+        border-left: 3px solid #39FF14;
     }
 }
 
 @keyframes words{
     0%, 20%{
-        content: "Web Developer";
+        content: "Space Developer";
     }
     21%, 40%{
-        content: "Developer";
+        content: "Cosmic Coder";
     }
     41%, 60%{
-        content: "Web Designer";
+        content: "Stellar Designer";
     }
     61%, 80%{
-        content: "Youtuber";
+        content: "Galaxy Builder";
     }
     81%, 100%{
-        content: "Script Writer";
+        content: "Universe Creator";
     }
 }
 
@@ -266,5 +498,245 @@ span{
         width: 70vw;
         margin-top: 4rem;
     }
+}
+
+/* Pixel Art Spaceship Animation */
+.spaceship {
+    position: fixed;
+    top: 20%;
+    left: -100px;
+    width: 60px;
+    height: 30px;
+    background: 
+        linear-gradient(90deg, 
+            transparent 0%, transparent 20%,
+            #00FFFF 20%, #00FFFF 40%,
+            #39FF14 40%, #39FF14 60%,
+            #00FFFF 60%, #00FFFF 80%,
+            transparent 80%, transparent 100%
+        ),
+        linear-gradient(0deg,
+            transparent 0%, transparent 30%,
+            #CCCCCC 30%, #CCCCCC 70%,
+            transparent 70%, transparent 100%
+        );
+    background-size: 15px 15px, 60px 30px;
+    animation: flyAcross 15s linear infinite;
+    z-index: 10;
+    image-rendering: pixelated;
+    transform: scale(2);
+}
+
+@keyframes flyAcross {
+    0% { 
+        left: -100px; 
+        top: 20%; 
+        transform: scale(2) rotate(0deg);
+    }
+    25% { 
+        top: 60%; 
+        transform: scale(2) rotate(5deg);
+    }
+    50% { 
+        top: 30%; 
+        transform: scale(2) rotate(-5deg);
+    }
+    75% { 
+        top: 70%; 
+        transform: scale(2) rotate(3deg);
+    }
+    100% { 
+        left: calc(100vw + 100px); 
+        top: 40%; 
+        transform: scale(2) rotate(0deg);
+    }
+}
+
+/* Floating Pixel Planets */
+.planet {
+    position: fixed;
+    border-radius: 50%;
+    animation: floatPlanet 20s ease-in-out infinite;
+    image-rendering: pixelated;
+}
+
+.planet1 {
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle at 30% 30%, #39FF14, #2D1B69);
+    top: 15%;
+    right: 10%;
+    animation-delay: 0s;
+}
+
+.planet2 {
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle at 40% 40%, #00FFFF, #0B1426);
+    bottom: 20%;
+    left: 5%;
+    animation-delay: -7s;
+}
+
+.planet3 {
+    width: 35px;
+    height: 35px;
+    background: radial-gradient(circle at 25% 25%, #FFFFFF, #2D1B69);
+    top: 60%;
+    right: 20%;
+    animation-delay: -14s;
+}
+
+@keyframes floatPlanet {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+        opacity: 0.7;
+    }
+    33% { 
+        transform: translateY(-20px) rotate(120deg); 
+        opacity: 1;
+    }
+    66% { 
+        transform: translateY(10px) rotate(240deg); 
+        opacity: 0.8;
+    }
+}
+
+/* Pixel Art Asteroids */
+.asteroid {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: 
+        linear-gradient(45deg, #CCCCCC 25%, transparent 25%),
+        linear-gradient(-45deg, #CCCCCC 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #CCCCCC 75%),
+        linear-gradient(-45deg, transparent 75%, #CCCCCC 75%);
+    background-size: 5px 5px;
+    background-position: 0 0, 0 2.5px, 2.5px -2.5px, -2.5px 0px;
+    animation: spinAsteroid 8s linear infinite;
+    image-rendering: pixelated;
+}
+
+.asteroid1 {
+    top: 10%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.asteroid2 {
+    bottom: 15%;
+    right: 15%;
+    animation-delay: -3s;
+}
+
+.asteroid3 {
+    top: 70%;
+    left: 80%;
+    animation-delay: -6s;
+}
+
+@keyframes spinAsteroid {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(1.2); }
+    50% { transform: rotate(180deg) scale(1); }
+    75% { transform: rotate(270deg) scale(0.8); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Additional animations */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Enhanced twinkling stars */
+.twinkling-star {
+    position: fixed;
+    background: #FFFFFF;
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* Mouse interaction area effects */
+.interactive-glow {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.interactive-glow:hover {
+    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+}
+
+/* Responsive adjustments for animations */
+@media (max-width: 768px) {
+    .spaceship {
+        transform: scale(1.5);
+    }
+    
+    .planet {
+        transform: scale(0.8);
+    }
+    
+    .asteroid {
+        transform: scale(0.7);
+    }
+    
+    body::before,
+    body::after {
+        background-size: 200px 150px, 300px 200px;
+    }
+}
+
+/* Performance optimizations */
+.spaceship,
+.planet,
+.asteroid,
+.cursor-star,
+.cosmic-particle {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Loading screen styles */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0B1426 0%, #2D1B69 50%, #0B1426 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(0, 255, 255, 0.3);
+    border-top: 3px solid #00FFFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
